@@ -1,7 +1,7 @@
 package com.lumera.wordsearch.Actions;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class IsogramSearch implements Search{
@@ -34,35 +34,50 @@ public class IsogramSearch implements Search{
                 .collect(Collectors.toList());
     }
 
-    boolean flag;
-
     @Override
     public List<String> searchByStartsWith(List<String> words, String startsWith) {
-        flag = false;
-        Predicate<String> filterStartCharacter = v -> {
-            words.forEach(word ->{
-                for (int i=0; i < startsWith.length() - 1; i++){
-                    if (word.charAt(i)==startsWith.charAt(i)){
-                        flag =  true;
-                    }
+        List<String> result = new ArrayList<>();
+        for (String word: words) {
+            if (startsWith.length() <= word.length()) {
+                if (startsWith.equals(word.substring(0,startsWith.length()))){
+                    result.add(word);
                 }
-            });
-            return flag;
-        };
+            }
+        }
 
-        return words.stream()
-                .filter(filterStartCharacter)
+        return result.stream()
                 .filter(w -> isIsogram(w))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<String> searchByEndsWith(List<String> words, String endsWith) {
-        return null;
-    }
+        List<String> result = new ArrayList<>();
+        for (String word: words){
+            if (endsWith.length() <= word.length()) {
+                if (endsWith.equals(word.substring(word.length()-endsWith.length()))){
+                    result.add(word);
+                }
+            }
+        }
+
+        return result.stream()
+                .filter(w -> isIsogram(w))
+                .collect(Collectors.toList());    }
 
     @Override
     public List<String> searchByContainsOnly(List<String> words, String containsOnly) {
-        return null;
+        String[] characters = containsOnly.split("");
+        List<String> result = null;
+
+        for (String character : characters){
+            result = words.stream()
+                    .filter(w -> w.contains(character))
+                    .collect(Collectors.toList());
+        }
+
+        return result.stream()
+                .filter(w -> isIsogram(w))
+                .collect(Collectors.toList());
     }
 }
