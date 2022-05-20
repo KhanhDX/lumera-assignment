@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.lumera.wordsearch.SomethingTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-05-20T14:50:29" hostname="MacBook-Pro-cua-Khanh.local" time="0.361">
+<testsuite name="com.lumera.wordsearch.SomethingTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-05-20T15:19:11" hostname="MacBook-Pro-cua-Khanh.local" time="0.219">
   <properties/>
-  <testcase name="palindrome_validTest" classname="com.lumera.wordsearch.SomethingTest" time="0.361">
+  <testcase name="palindrome_validTest" classname="com.lumera.wordsearch.SomethingTest" time="0.219">
     <failure message="java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0" type="java.lang.IndexOutOfBoundsException">java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
 	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
 	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)

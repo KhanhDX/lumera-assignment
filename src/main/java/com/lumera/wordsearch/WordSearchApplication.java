@@ -5,7 +5,9 @@ import com.lumera.wordsearch.Actions.PalindromeSearch;
 import com.lumera.wordsearch.Actions.Search;
 import com.lumera.wordsearch.Actions.SemordnilapSearch;
 
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static com.lumera.wordsearch.WordlistKt.readWordList;
@@ -60,36 +62,51 @@ public class WordSearchApplication {
     }
 
     public static void processToSearch(List<String> words, Scanner sc, Search search) {
-        System.out.print("***** MAX LENGTH   : ");
-        Integer maxLength = sc.nextInt();
-        System.out.println();
+        while (true) {
+            try {
+                System.out.print("***** MAX LENGTH   : ");
+                String maxLengthStr = sc.next();
+                Integer maxLength = Integer.parseInt(maxLengthStr);
+                System.out.println();
 
-        System.out.print("***** MIN LENGTH   : ");
-        Integer minLength = sc.nextInt();
-        System.out.println();
+                System.out.print("***** MIN LENGTH   : ");
+                sc.nextLine();
+                String minLengthStr = sc.nextLine();
+                Integer minLength = Integer.parseInt(minLengthStr);
+                System.out.println();
 
-        System.out.print("***** START WITH   : ");
-        sc.nextLine();
-        String startWith = sc.nextLine();
-        System.out.println();
+                System.out.print("***** START WITH   : ");
+                String startWith = sc.nextLine();
+                System.out.println();
 
-        System.out.print("***** END WITH     : ");
-        String endWith = sc.nextLine();
-        System.out.println();
+                System.out.print("***** END WITH     : ");
+                String endWith = sc.nextLine();
+                System.out.println();
 
-        System.out.print("***** CONTAINS ONLY: ");
-        String containsonly = sc.nextLine();
-        System.out.println();
+                System.out.print("***** CONTAINS ONLY: ");
+                String containsonly = sc.nextLine();
+                System.out.println();
 
-        List<String> r1 = searchWords(search,
-                words,
-                startWith,
-                endWith,
-                maxLength,
-                minLength,
-                containsonly);
 
-        System.out.println(r1);
+                if (!checkIfAnyNull(startWith, endWith, maxLength, minLength, containsonly)) {
+                    List<String> r1 = searchWords(search,
+                            words,
+                            startWith,
+                            endWith,
+                            maxLength,
+                            minLength,
+                            containsonly);
+                    System.out.println(r1);
+                    break;
+                } else {
+                    System.out.println("***** INVALID INPUT, PLEASE TRY AGAIN");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("***** INVALID INPUT, PLEASE TRY AGAIN");
+                continue;
+            }
+        }
     }
 
     public static List<String> searchWords(Search search,
@@ -105,5 +122,21 @@ public class WordSearchApplication {
         r2 = search.searchByMinLength(r1,minLength);
         r1 = search.searchByContainsOnly(r2,containsonly);
         return r1;
+    }
+
+    private static boolean checkIfAnyNull(String startWith,
+                                          String endWith,
+                                          Integer maxLength,
+                                          Integer minLength,
+                                          String containsonly){
+        return (Objects.isNull(startWith) ||
+                "".equals(startWith) ||
+                Objects.isNull(endWith) ||
+                "".equals(endWith) ||
+                Objects.isNull(maxLength) ||
+                Objects.isNull(minLength) ||
+                "".equals(containsonly) ||
+                Objects.isNull(containsonly)) ? true : false;
+
     }
 }
