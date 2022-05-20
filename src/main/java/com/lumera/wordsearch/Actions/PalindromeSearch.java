@@ -9,16 +9,15 @@ public class PalindromeSearch implements Search{
     private boolean isPalindrome(String word){
         StringBuilder wordBuilder = new StringBuilder(word);
         String reverseWord = wordBuilder.reverse().toString();
-        if (reverseWord.equals(wordBuilder)){
-            return true;
-        } else return false;
+        return reverseWord.equals(wordBuilder);
     }
+
 
     @Override
     public List<String> searchByMaxLength(List<String> words, Integer maxLength) {
         return words.stream()
                 .filter(w -> w.length()>=maxLength)
-                .filter(w -> isPalindrome(w))
+                .filter(this::isPalindrome)
                 .collect(Collectors.toList());
     }
 
@@ -26,38 +25,38 @@ public class PalindromeSearch implements Search{
     public List<String> searchByMinLength(List<String> words, Integer minLength) {
         return words.stream()
                 .filter(w -> w.length()>=minLength)
-                .filter(w -> isPalindrome(w))
+                .filter(this::isPalindrome)
                 .collect(Collectors.toList());    }
 
     @Override
     public List<String> searchByStartsWith(List<String> words, String startsWith) {
-        List<String> result = new ArrayList<>();
+        List<String> results = new ArrayList<>();
         for (String word: words) {
             if (startsWith.length() <= word.length()) {
                 if (startsWith.equals(word.substring(0,startsWith.length()))){
-                    result.add(word);
+                    results.add(word);
                 }
             }
         }
 
-        return result.stream()
-                .filter(w -> isPalindrome(w))
+        return results.stream()
+                .filter(this::isPalindrome)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<String> searchByEndsWith(List<String> words, String endsWith) {
-        List<String> result = new ArrayList<>();
+        List<String> results = new ArrayList<>();
         for (String word: words){
             if (endsWith.length() <= word.length()) {
                 if (endsWith.equals(word.substring(word.length()-endsWith.length()))){
-                    result.add(word);
+                    results.add(word);
                 }
             }
         }
 
-        return result.stream()
-                .filter(w -> isPalindrome(w))
+        return results.stream()
+                .filter(this::isPalindrome)
                 .collect(Collectors.toList());    }
 
     @Override

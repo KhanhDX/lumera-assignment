@@ -59,7 +59,7 @@ public class WordSearchApplication {
         }
     }
 
-    private static void processToSearch(List<String> words, Scanner sc, Search search) {
+    public static void processToSearch(List<String> words, Scanner sc, Search search) {
         System.out.print("***** MAX LENGTH   : ");
         Integer maxLength = sc.nextInt();
         System.out.println();
@@ -81,12 +81,29 @@ public class WordSearchApplication {
         String containsonly = sc.nextLine();
         System.out.println();
 
+        List<String> r1 = searchWords(search,
+                words,
+                startWith,
+                endWith,
+                maxLength,
+                minLength,
+                containsonly);
+
+        System.out.println(r1);
+    }
+
+    public static List<String> searchWords(Search search,
+                                           List<String> words,
+                                           String startWith,
+                                           String endWith,
+                                           Integer maxLength,
+                                           Integer minLength,
+                                           String containsonly){
         List<String> r1 = search.searchByStartsWith(words,startWith);
         List<String> r2 = search.searchByEndsWith(r1,endWith);
         r1 = search.searchByMaxLength(r2,maxLength);
         r2 = search.searchByMinLength(r1,minLength);
         r1 = search.searchByContainsOnly(r2,containsonly);
-
-        System.out.println(r1);
+        return r1;
     }
 }

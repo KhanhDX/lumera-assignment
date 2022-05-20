@@ -22,7 +22,7 @@ public class IsogramSearch implements Search{
     public List<String> searchByMaxLength(List<String> words, Integer maxLength) {
         return words.stream()
                 .filter(w -> w.length()<=maxLength)
-                .filter(w -> isIsogram(w))
+                .filter(this::isIsogram)
                 .collect(Collectors.toList());
     }
 
@@ -30,53 +30,53 @@ public class IsogramSearch implements Search{
     public List<String> searchByMinLength(List<String> words, Integer minLength) {
         return words.stream()
                 .filter(w -> w.length()>=minLength)
-                .filter(w -> isIsogram(w))
+                .filter(this::isIsogram)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<String> searchByStartsWith(List<String> words, String startsWith) {
-        List<String> result = new ArrayList<>();
+        List<String> results = new ArrayList<>();
         for (String word: words) {
             if (startsWith.length() <= word.length()) {
                 if (startsWith.equals(word.substring(0,startsWith.length()))){
-                    result.add(word);
+                    results.add(word);
                 }
             }
         }
 
-        return result.stream()
-                .filter(w -> isIsogram(w))
+        return results.stream()
+                .filter(this::isIsogram)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<String> searchByEndsWith(List<String> words, String endsWith) {
-        List<String> result = new ArrayList<>();
+        List<String> results = new ArrayList<>();
         for (String word: words){
             if (endsWith.length() <= word.length()) {
                 if (endsWith.equals(word.substring(word.length()-endsWith.length()))){
-                    result.add(word);
+                    results.add(word);
                 }
             }
         }
 
-        return result.stream()
+        return results.stream()
                 .filter(w -> isIsogram(w))
                 .collect(Collectors.toList());    }
 
     @Override
     public List<String> searchByContainsOnly(List<String> words, String containsOnly) {
         String[] characters = containsOnly.split("");
-        List<String> result = null;
+        List<String> results = new ArrayList<>();
 
         for (String character : characters){
-            result = words.stream()
+            results = words.stream()
                     .filter(w -> w.contains(character))
                     .collect(Collectors.toList());
         }
 
-        return result.stream()
+        return results.stream()
                 .filter(w -> isIsogram(w))
                 .collect(Collectors.toList());
     }
