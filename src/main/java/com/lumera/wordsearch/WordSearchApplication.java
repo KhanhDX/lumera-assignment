@@ -5,7 +5,6 @@ import com.lumera.wordsearch.Actions.PalindromeSearch;
 import com.lumera.wordsearch.Actions.Search;
 import com.lumera.wordsearch.Actions.SemordnilapSearch;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -129,14 +128,14 @@ public class WordSearchApplication {
                                           Integer maxLength,
                                           Integer minLength,
                                           String containsonly){
-        return (Objects.isNull(startWith) ||
+        return Objects.isNull(startWith) ||
                 "".equals(startWith) ||
                 Objects.isNull(endWith) ||
                 "".equals(endWith) ||
                 Objects.isNull(maxLength) ||
                 Objects.isNull(minLength) ||
                 "".equals(containsonly) ||
-                Objects.isNull(containsonly)) ? true : false;
+                Objects.isNull(containsonly);
 
     }
 }
